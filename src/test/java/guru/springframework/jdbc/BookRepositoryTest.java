@@ -65,4 +65,9 @@ public class BookRepositoryTest {
     void testBookQuery() {
         assertNotNull(bookRepository.giveMeMyBookWithATitleNOW("Clean Code"));
     }
+
+    @Test
+    void testNativeQuery() {
+        assertNotNull(bookRepository.theCodeBookOfGloriousEvolution("Clean Code"));
+    }
 }
