@@ -14,7 +14,7 @@ import static guru.springframework.jdbc.domain.Book.FIND_BY_TITLE;
 @Builder
 @NamedQuery(name = FIND_BY_TITLE, query = "from Book b where b.title = :title")
 public class Book {
-    public static final String FIND_BY_TITLE = "Book.findByTitle";
+    public static final String FIND_BY_TITLE = "Book.findByTitleReallyQuick";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include

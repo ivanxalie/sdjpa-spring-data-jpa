@@ -73,6 +73,6 @@ public class BookRepositoryTest {
 
     @Test
     void testNamedQuery() {
-        assertNotNull(bookRepository.findByTitleNamedQuery("Clean Code"));
+        assertNotNull(bookRepository.findByTitleReallyQuick("Clean Code"));
     }
 }

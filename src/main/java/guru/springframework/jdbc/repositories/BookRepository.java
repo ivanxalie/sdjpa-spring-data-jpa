@@ -11,8 +11,6 @@ import java.util.Optional;
 import java.util.concurrent.Future;
 import java.util.stream.Stream;
 
-import static guru.springframework.jdbc.domain.Book.FIND_BY_TITLE;
-
 public interface BookRepository extends JpaRepository<Book, Long> {
     Optional<Book> findByTitle(String title);
 
@@ -32,6 +30,5 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query(nativeQuery = true, value = "select * from book where title = :theSacredBook")
     Book theCodeBookOfGloriousEvolution(String theSacredBook);
 
-    @Query(name = FIND_BY_TITLE)
-    Book findByTitleNamedQuery(String title);
+    Book findByTitleReallyQuick(String title);
 }
