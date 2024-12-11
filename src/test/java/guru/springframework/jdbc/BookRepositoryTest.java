@@ -62,7 +62,7 @@ public class BookRepositoryTest {
     }
 
     @Test
-    void testGiveMeMyBookWithATitleNOW() {
+    void testBookQuery() {
         assertNotNull(bookRepository.giveMeMyBookWithATitleNOW("Clean Code"));
     }
 }
