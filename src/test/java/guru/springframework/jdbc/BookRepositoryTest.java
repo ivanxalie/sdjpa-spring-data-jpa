@@ -60,4 +60,9 @@ public class BookRepositoryTest {
         Future<Book> bookFuture = bookRepository.queryByTitle("Clean Code");
         assertNotNull(bookFuture.get());
     }
+
+    @Test
+    void testGiveMeMyBookWithATitleNOW() {
+        assertNotNull(bookRepository.giveMeMyBookWithATitleNOW("Clean Code"));
+    }
 }
