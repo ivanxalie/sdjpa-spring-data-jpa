@@ -3,6 +3,8 @@ package guru.springframework.jdbc.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import static guru.springframework.jdbc.domain.Book.FIND_BY_TITLE;
+
 @Setter
 @Getter
 @Entity
@@ -10,7 +12,9 @@ import lombok.*;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Builder
+@NamedQuery(name = FIND_BY_TITLE, query = "from Book b where b.title = :title")
 public class Book {
+    public static final String FIND_BY_TITLE = "Book.findByTitle";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include

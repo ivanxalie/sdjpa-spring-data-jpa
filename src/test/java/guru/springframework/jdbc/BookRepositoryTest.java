@@ -70,4 +70,9 @@ public class BookRepositoryTest {
     void testNativeQuery() {
         assertNotNull(bookRepository.theCodeBookOfGloriousEvolution("Clean Code"));
     }
+
+    @Test
+    void testNamedQuery() {
+        assertNotNull(bookRepository.findByTitleNamedQuery("Clean Code"));
+    }
 }
