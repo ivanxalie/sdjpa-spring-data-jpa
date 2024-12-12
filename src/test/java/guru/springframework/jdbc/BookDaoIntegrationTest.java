@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
@@ -34,6 +35,13 @@ class BookDaoIntegrationTest {
     @Test
     void testFindAllPageAndSize() {
         List<Book> books = bookDao.findAllBooks(2, 2);
+
+        assertThat(books).isNotNull().hasSize(2);
+    }
+
+    @Test
+    void testFindAllPageAndSizePageable() {
+        List<Book> books = bookDao.findAllBooks(PageRequest.ofSize(2));
 
         assertThat(books).isNotNull().hasSize(2);
     }

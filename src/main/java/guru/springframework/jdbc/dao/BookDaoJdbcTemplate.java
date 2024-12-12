@@ -3,6 +3,7 @@ package guru.springframework.jdbc.dao;
 import guru.springframework.jdbc.domain.Book;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -55,6 +56,18 @@ public class BookDaoJdbcTemplate implements BookDao {
     public List<Book> findAllBooks(int pageSize, int offset) {
         try {
             return template.query("select * from book limit ? offset ?", mapper.getObject(), pageSize, offset);
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public List<Book> findAllBooks(Pageable pageable) {
+        try {
+            return template.query("select * from book limit ? offset ?", mapper.getObject(),
+                    pageable.getPageSize(),
+                    pageable.getOffset()
+            );
         } catch (Exception e) {
             return Collections.emptyList();
         }
