@@ -47,6 +47,13 @@ class BookDaoIntegrationTest {
     }
 
     @Test
+    void testFindAllPageAndSizePageableOrderByTitle() {
+        List<Book> books = bookDao.findAllBooksSortByTitle(PageRequest.ofSize(2));
+
+        assertThat(books).isNotNull().hasSize(2);
+    }
+
+    @Test
     void testGetBookById() {
         Book book = bookDao.getById(1L);
 

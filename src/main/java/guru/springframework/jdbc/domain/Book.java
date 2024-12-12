@@ -13,6 +13,7 @@ import static guru.springframework.jdbc.domain.Book.FIND_BY_TITLE;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Builder
 @NamedQuery(name = FIND_BY_TITLE, query = "from Book b where b.title = :title")
+@ToString
 public class Book {
     public static final String FIND_BY_TITLE = "Book.findByTitleReallyQuick";
     @Id
@@ -23,5 +24,6 @@ public class Book {
     private String isbn;
     private String publisher;
     @OneToOne
+    @ToString.Exclude
     private Author author;
 }

@@ -6,6 +6,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -53,5 +54,11 @@ public class BookDaoImpl implements BookDao {
     @Override
     public List<Book> findAllBooks(Pageable pageable) {
         return repository.findAll(pageable).stream().toList();
+    }
+
+    @Override
+    public List<Book> findAllBooksSortByTitle(Pageable pageable) {
+        return repository.findAll(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
+                Sort.by("title"))).stream().toList();
     }
 }
