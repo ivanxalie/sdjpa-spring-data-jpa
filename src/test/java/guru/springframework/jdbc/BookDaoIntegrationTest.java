@@ -32,6 +32,13 @@ class BookDaoIntegrationTest {
     }
 
     @Test
+    void testFindAllPageAndSize() {
+        List<Book> books = bookDao.findAllBooks(2, 2);
+
+        assertThat(books).isNotNull().hasSize(2);
+    }
+
+    @Test
     void testGetBookById() {
         Book book = bookDao.getById(1L);
 

@@ -52,6 +52,15 @@ public class BookDaoJdbcTemplate implements BookDao {
     }
 
     @Override
+    public List<Book> findAllBooks(int pageSize, int offset) {
+        try {
+            return template.query("select * from book limit ? offset ?", mapper.getObject(), pageSize, offset);
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
     public Book saveNewBook(Book book) {
         String sql = "INSERT INTO book (isbn, publisher, title, author_id) VALUES (?, ?, ?, ?)";
 
