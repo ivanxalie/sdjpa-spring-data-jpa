@@ -2,6 +2,8 @@ package guru.springframework.jdbc.dao;
 
 import guru.springframework.jdbc.domain.Book;
 
+import java.util.List;
+
 public interface BookDao {
 
     Book saveNewBook(Book book);
@@ -13,4 +15,6 @@ public interface BookDao {
     Book updateBook(Book book);
 
     Book findBookByTitle(String title);
+
+    List<Book> findAllBooks();
 }

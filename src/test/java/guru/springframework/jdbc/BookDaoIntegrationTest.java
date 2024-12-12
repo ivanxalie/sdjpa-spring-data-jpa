@@ -12,6 +12,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("local")
@@ -21,6 +23,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 class BookDaoIntegrationTest {
     @Autowired
     BookDao bookDao;
+
+    @Test
+    void testFindAll() {
+        List<Book> books = bookDao.findAllBooks();
+
+        assertThat(books).isNotNull().hasSize(5);
+    }
 
     @Test
     void testGetBookById() {

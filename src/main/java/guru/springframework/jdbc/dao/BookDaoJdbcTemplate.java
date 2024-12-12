@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.Collections;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -37,6 +39,15 @@ public class BookDaoJdbcTemplate implements BookDao {
                     mapper.getObject(), title);
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    @Override
+    public List<Book> findAllBooks() {
+        try {
+            return template.query(con -> con.prepareStatement("select * from book"), mapper.getObject());
+        } catch (Exception e) {
+            return Collections.emptyList();
         }
     }
 
