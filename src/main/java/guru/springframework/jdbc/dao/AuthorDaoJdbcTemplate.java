@@ -79,15 +79,15 @@ public class AuthorDaoJdbcTemplate implements AuthorDao {
     @Override
     public List<Author> findAuthorByLastName(String lastName, Pageable pageable) {
         try {
-            String sql = "select * from author where last_name = ?";
+            StringBuilder sql = new StringBuilder("select * from author where last_name = ?");
             Sort.Order order = pageable.getSort().getOrderFor("first_name");
             if (order != null) {
-                sql += " order by first_name";
-                if (order.isAscending()) sql += " asc";
-                else sql += " desc";
+                sql.append(" order by first_name");
+                if (order.isAscending()) sql.append(" asc");
+                else sql.append(" desc");
             }
-            sql += " limit ? offset ?";
-            return template.query(sql, mapper.getObject(), lastName,
+            sql.append(" limit ? offset ?");
+            return template.query(sql.toString(), mapper.getObject(), lastName,
                     pageable.getPageSize(),
                     pageable.getOffset()
             );
