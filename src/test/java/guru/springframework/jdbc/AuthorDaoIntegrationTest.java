@@ -9,7 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -37,6 +41,21 @@ class AuthorDaoIntegrationTest {
 
         assertThat(author).isNotNull().satisfies(selectedAuthor -> assertThat(selectedAuthor.getId())
                 .isEqualTo(1L));
+    }
+
+    @Test
+    void testFindAuthorByLastName() {
+        List<Author> authors = authorDao.findAuthorByLastName("Evans");
+
+        assertThat(authors).isNotNull().hasSize(2);
+    }
+
+    @Test
+    void testFindAuthorByLastNameOrderByFirstName() {
+        List<Author> authors = authorDao.findAuthorByLastName("Evans", PageRequest.of(0, 2,
+                Sort.by(Sort.Direction.DESC, "first_name")));
+
+        assertThat(authors).isNotNull().hasSize(2);
     }
 
     @Test

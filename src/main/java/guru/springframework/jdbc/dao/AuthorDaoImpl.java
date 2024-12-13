@@ -4,7 +4,10 @@ import guru.springframework.jdbc.domain.Author;
 import guru.springframework.jdbc.repositories.AuthorRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Created by jt on 8/28/21.
@@ -39,5 +42,15 @@ public class AuthorDaoImpl implements AuthorDao {
     @Override
     public void deleteAuthorById(Long id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public List<Author> findAuthorByLastName(String lastName) {
+        return repository.findByLastName(lastName);
+    }
+
+    @Override
+    public List<Author> findAuthorByLastName(String lastName, Pageable pageable) {
+        return repository.findByLastName(lastName, pageable);
     }
 }

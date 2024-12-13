@@ -3,6 +3,8 @@ package guru.springframework.jdbc.dao;
 import guru.springframework.jdbc.domain.Author;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.Collections;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -21,8 +25,7 @@ public class AuthorDaoJdbcTemplate implements AuthorDao {
     @Override
     public Author getById(Long id) {
         try {
-            return template.queryForObject(
-                    "select * from author where id = ?", mapper.getObject(), id);
+            return template.queryForObject("select * from author where id = ?", mapper.getObject(), id);
         } catch (Exception e) {
             return null;
         }
@@ -31,9 +34,7 @@ public class AuthorDaoJdbcTemplate implements AuthorDao {
     @Override
     public Author findAuthorByName(String firstName, String lastName) {
         try {
-            return template.queryForObject(
-                    "select * from author where first_name = ? and last_name = ?",
-                    mapper.getObject(), firstName, lastName);
+            return template.queryForObject("select * from author where first_name = ? and last_name = ?", mapper.getObject(), firstName, lastName);
         } catch (Exception e) {
             return null;
         }
@@ -57,14 +58,41 @@ public class AuthorDaoJdbcTemplate implements AuthorDao {
 
     @Override
     public Author updateAuthor(Author author) {
-        template.update(
-                "update author set first_name = ?, last_name = ? where id = ?"
-                , author.getFirstName(), author.getLastName(), author.getId());
+        template.update("update author set first_name = ?, last_name = ? where id = ?", author.getFirstName(), author.getLastName(), author.getId());
         return author;
     }
 
     @Override
     public void deleteAuthorById(Long id) {
         template.update("delete from author where id = ?", id);
+    }
+
+    @Override
+    public List<Author> findAuthorByLastName(String lastName) {
+        try {
+            return template.query("select * from author where last_name = ?", mapper.getObject(), lastName);
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public List<Author> findAuthorByLastName(String lastName, Pageable pageable) {
+        try {
+            String sql = "select * from author where last_name = ?";
+            Sort.Order order = pageable.getSort().getOrderFor("first_name");
+            if (order != null) {
+                sql += " order by first_name";
+                if (order.isAscending()) sql += " asc";
+                else sql += " desc";
+            }
+            sql += " limit ? offset ?";
+            return template.query(sql, mapper.getObject(), lastName,
+                    pageable.getPageSize(),
+                    pageable.getOffset()
+            );
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
     }
 }
