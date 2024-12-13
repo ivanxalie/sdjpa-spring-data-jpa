@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="insert-authors" author="ivanxalie">
+        <insert tableName="author">
+            <column name="first_name" value="Robert"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Alexander"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Krausz"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Valentin"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Ahmed"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Tishara"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Yakovlev"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Claudiu"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Dinesh"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Arimardan"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Prasath"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Mekandor"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Alberto"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Roberto"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Barbara"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Stepan"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Dhanunjaya"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Christian"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Marcel"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Silvio"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Mitesh"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Jayesh"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Pooja"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Woraphat"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Yugal"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Jasonk"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Serdar"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Ugur"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Vera"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Surendra"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Serhad"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Patrick"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Yeum"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Benjamin"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Jasmine"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Ganesh"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+        <insert tableName="author">
+            <column name="first_name" value="Manuel"/>
+            <column name="last_name" value="Smith"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

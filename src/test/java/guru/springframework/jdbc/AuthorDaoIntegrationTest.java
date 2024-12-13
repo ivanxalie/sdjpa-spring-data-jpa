@@ -51,11 +51,11 @@ class AuthorDaoIntegrationTest {
     }
 
     @Test
-    void testFindAuthorByLastNameOrderByFirstName() {
-        List<Author> authors = authorDao.findAuthorByLastName("Evans", PageRequest.of(0, 2,
+    void testFindAuthorByLastNameOrderByFirstNameSecondPage() {
+        List<Author> authors = authorDao.findAuthorByLastName("Smith", PageRequest.of(2, 10,
                 Sort.by(Sort.Direction.DESC, "first_name")));
 
-        assertThat(authors).isNotNull().hasSize(2);
+        assertThat(authors).isNotNull().hasSize(10);
     }
 
     @Test
