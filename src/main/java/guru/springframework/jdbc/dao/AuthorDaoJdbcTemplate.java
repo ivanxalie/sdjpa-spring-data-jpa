@@ -82,9 +82,8 @@ public class AuthorDaoJdbcTemplate implements AuthorDao {
             StringBuilder sql = new StringBuilder("select * from author where last_name = ?");
             Sort.Order order = pageable.getSort().getOrderFor("first_name");
             if (order != null) {
-                sql.append(" order by first_name");
-                if (order.isAscending()) sql.append(" asc");
-                else sql.append(" desc");
+                sql.append(" order by first_name ");
+                sql.append(order.getDirection().name());
             }
             sql.append(" limit ? offset ?");
             return template.query(sql.toString(), mapper.getObject(), lastName,
