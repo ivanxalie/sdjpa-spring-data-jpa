@@ -1,9 +1,6 @@
 package guru.springframework.jdbc;
 
-import guru.springframework.jdbc.dao.AuthorDaoImpl;
-import guru.springframework.jdbc.dao.BookDao;
-import guru.springframework.jdbc.dao.BookDaoJdbcTemplate;
-import guru.springframework.jdbc.dao.BookMapper;
+import guru.springframework.jdbc.dao.*;
 import guru.springframework.jdbc.domain.Book;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("local")
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Import({BookDaoJdbcTemplate.class, AuthorDaoImpl.class, BookMapper.class})
+@Import({BookDaoJdbcTemplate.class, AuthorDaoJdbcTemplate.class, BookMapper.class})
 class BookDaoIntegrationTest {
     @Autowired
     BookDao bookDao;
