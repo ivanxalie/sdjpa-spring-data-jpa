@@ -22,18 +22,7 @@ public class AuthorDaoJdbcTemplate implements AuthorDao {
     public Author getById(Long id) {
         try {
             return template.queryForObject(
-                    "select " +
-                            "a.id id, " +
-                            "first_name, " +
-                            "last_name, " +
-                            "b.id book_id, " +
-                            "b.isbn, " +
-                            "b.publisher, " +
-                            "b.title, " +
-                            "b.author_id " +
-                            "from book b " +
-                            "join author a on b.author_id = a.id " +
-                            "where a.id = ?", mapper.getObject(), id);
+                    "select * from author where id = ?", mapper.getObject(), id);
         } catch (Exception e) {
             return null;
         }
@@ -43,18 +32,7 @@ public class AuthorDaoJdbcTemplate implements AuthorDao {
     public Author findAuthorByName(String firstName, String lastName) {
         try {
             return template.queryForObject(
-                    "select " +
-                            "a.id id, " +
-                            "first_name, " +
-                            "last_name, " +
-                            "b.id book_id, " +
-                            "b.isbn, " +
-                            "b.publisher, " +
-                            "b.title, " +
-                            "b.author_id " +
-                            "from book b " +
-                            "join author a on b.author_id = a.id " +
-                            "where first_name = ? and last_name = ?",
+                    "select * from author where first_name = ? and last_name = ?",
                     mapper.getObject(), firstName, lastName);
         } catch (Exception e) {
             return null;

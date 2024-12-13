@@ -14,7 +14,6 @@ import java.sql.SQLException;
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
 public class BookMapper implements RowMapper<Book> {
-    private final AuthorDao authorDao;
 
     @Override
     public Book mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -23,7 +22,6 @@ public class BookMapper implements RowMapper<Book> {
                 .title(rs.getString("title"))
                 .isbn(rs.getString("isbn"))
                 .publisher(rs.getString("publisher"))
-                .author(authorDao.getById(rs.getLong("author_id")))
                 .build();
     }
 }

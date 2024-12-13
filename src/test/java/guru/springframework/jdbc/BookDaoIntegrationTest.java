@@ -1,6 +1,8 @@
 package guru.springframework.jdbc;
 
-import guru.springframework.jdbc.dao.*;
+import guru.springframework.jdbc.dao.BookDao;
+import guru.springframework.jdbc.dao.BookDaoJdbcTemplate;
+import guru.springframework.jdbc.dao.BookMapper;
 import guru.springframework.jdbc.domain.Book;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("local")
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Import({BookDaoJdbcTemplate.class, AuthorDaoJdbcTemplate.class, BookMapper.class})
+@Import({BookDaoJdbcTemplate.class, BookMapper.class})
 class BookDaoIntegrationTest {
     @Autowired
     BookDao bookDao;
@@ -62,10 +64,10 @@ class BookDaoIntegrationTest {
     }
 
     @Test
-    void testGetAuthorByTitle() {
-        Book author = bookDao.findBookByTitle("Spring in Action, 5th Edition");
+    void testGetBookByTitle() {
+        Book book = bookDao.findBookByTitle("Spring in Action, 5th Edition");
 
-        assertThat(author).isNotNull().satisfies(selectedAuthor -> assertThat(selectedAuthor.getId())
+        assertThat(book).isNotNull().satisfies(selectedAuthor -> assertThat(selectedAuthor.getId())
                 .isEqualTo(1L));
     }
 
