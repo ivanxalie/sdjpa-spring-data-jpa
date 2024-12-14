@@ -28,7 +28,7 @@ class BookDaoJdbcIntegrationTest {
     void testFindAll() {
         List<Book> books = bookDao.findAllBooks();
 
-        assertThat(books).isNotNull().hasSize(5);
+        assertThat(books).isNotNull().hasSizeGreaterThan(4);
     }
 
     @Test

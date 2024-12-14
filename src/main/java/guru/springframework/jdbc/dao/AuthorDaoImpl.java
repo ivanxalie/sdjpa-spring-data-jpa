@@ -4,6 +4,7 @@ import guru.springframework.jdbc.domain.Author;
 import guru.springframework.jdbc.repositories.AuthorRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,7 @@ import java.util.List;
  */
 @Component
 @RequiredArgsConstructor
+@Primary
 public class AuthorDaoImpl implements AuthorDao {
     private final AuthorRepository repository;
 

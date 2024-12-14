@@ -4,6 +4,7 @@ import guru.springframework.jdbc.domain.Book;
 import guru.springframework.jdbc.repositories.BookRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
+@Primary
 public class BookDaoImpl implements BookDao {
     private final BookRepository repository;
 
