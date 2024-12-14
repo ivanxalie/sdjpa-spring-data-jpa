@@ -6,13 +6,16 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static guru.springframework.jdbc.config.AppConfig.ENTITY_MANAGER_NAME;
-import static guru.springframework.jdbc.domain.Author.*;
+import static guru.springframework.jdbc.domain.Author.FIND_BY_LAST_NAME;
+import static guru.springframework.jdbc.domain.Author.FIND_BY_NAME;
 
 /**
  * Created by jt on 8/28/21.
@@ -95,6 +98,21 @@ public class AuthorDaoHibernate implements AuthorDao {
 
     @Override
     public List<Author> findAuthorByLastName(String lastName, Pageable pageable) {
-        return List.of();
+        return execute(entityManager -> {
+                    StringBuilder hql = new StringBuilder("select a from Author a where a.lastName = :lastName");
+                    Sort sort = pageable.getSort();
+                    if (sort.isSorted()) {
+                        hql.append(" order by ");
+                        hql.append(sort.get().map(order -> order.getProperty() + " " +
+                                order.getDirection().name()).collect(Collectors.joining(",")));
+                    }
+                    TypedQuery<Author> query = entityManager.createQuery(
+                            hql.toString(), Author.class);
+                    query.setFirstResult(Math.toIntExact(pageable.getOffset()));
+                    query.setMaxResults(Math.toIntExact(pageable.getPageSize()));
+                    query.setParameter("lastName", lastName);
+                    return query.getResultList();
+                }
+        );
     }
 }

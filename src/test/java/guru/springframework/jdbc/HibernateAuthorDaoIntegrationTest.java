@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
@@ -88,5 +90,20 @@ public class HibernateAuthorDaoIntegrationTest {
 
         assertThat(authors).isNotNull();
         assertThat(authors.size()).isGreaterThan(0);
+    }
+
+    @Test
+    void testAuthorsByLastNameFortySmithsPage1Limit10() {
+        List<Author> authors = authorDao
+                .findAuthorByLastName("Smith", PageRequest.of(1, 10
+                        ,
+                        Sort.by(
+                                Sort.Order.desc("firstName"),
+                                Sort.Order.asc("lastName")
+                        )
+                ));
+
+        assertThat(authors).isNotNull();
+        assertThat(authors.size()).isEqualTo(10);
     }
 }
