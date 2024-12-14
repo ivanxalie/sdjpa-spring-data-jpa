@@ -20,7 +20,7 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public Book saveNewBook(Book book) {
-        return repository.save(book);
+        return repository.saveAndFlush(book);
     }
 
     @Override

@@ -1,0 +1,120 @@
+package guru.springframework.jdbc;
+
+import guru.springframework.jdbc.dao.BookDao;
+import guru.springframework.jdbc.dao.BookDaoImpl;
+import guru.springframework.jdbc.domain.Book;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
+import org.springframework.test.context.ActiveProfiles;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
+
+@ActiveProfiles("local")
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Import({BookDaoImpl.class})
+class BookDaoRepositoryIntegrationTest {
+    @Autowired
+    BookDao bookDao;
+
+    @Test
+    void testFindAll() {
+        List<Book> books = bookDao.findAllBooks();
+
+        assertThat(books).isNotNull().hasSizeGreaterThan(4);
+    }
+
+    @Test
+    void testFindAllPageAndSize() {
+        List<Book> books = bookDao.findAllBooks(2, 2);
+
+        assertThat(books).isNotNull().hasSize(2);
+    }
+
+    @Test
+    void testFindAllPageAndSizePageable() {
+        List<Book> books = bookDao.findAllBooks(PageRequest.ofSize(2));
+
+        assertThat(books).isNotNull().hasSize(2);
+    }
+
+    @Test
+    void testFindAllPageAndSizePageableOrderByTitle() {
+        List<Book> books = bookDao.findAllBooksSortByTitle(PageRequest.ofSize(2));
+
+        assertThat(books).isNotNull().hasSize(2);
+    }
+
+    @Test
+    void testGetBookById() {
+        Book book = bookDao.getById(1L);
+
+        assertThat(book).isNotNull().satisfies(selectedBook -> {
+            assertThat(selectedBook.getTitle()).isEqualTo("Spring in Action, 5th Edition");
+            assertThat(selectedBook.getPublisher()).isEqualTo("Simon & Schuster");
+            assertThat(selectedBook.getIsbn()).isEqualTo("978-1617294945");
+        });
+    }
+
+    @Test
+    void testGetBookByTitle() {
+        Book book = bookDao.findBookByTitle("Spring in Action, 5th Edition");
+
+        assertThat(book).isNotNull().satisfies(selectedAuthor -> assertThat(selectedAuthor.getId())
+                .isEqualTo(1L));
+    }
+
+    @Test
+    void testInsert() {
+        Book author = bookDao.saveNewBook(Book.builder()
+                .title("Andrew")
+                .publisher("Bean")
+                .isbn("Bean")
+                .build());
+
+        Book saved = bookDao.getById(author.getId());
+
+        assertThat(saved).isNotNull().satisfies(selectedAuthor -> {
+            assertThat(selectedAuthor.getTitle()).isEqualTo("Andrew");
+            assertThat(selectedAuthor.getPublisher()).isEqualTo("Bean");
+            assertThat(selectedAuthor.getIsbn()).isEqualTo("Bean");
+        });
+
+        bookDao.deleteBookById(author.getId());
+    }
+
+    @Test
+    void testUpdate() {
+        Book authorToUpdate = bookDao.getById(1L);
+        String previousLastName = authorToUpdate.getIsbn();
+        authorToUpdate.setIsbn("Carlione");
+
+        bookDao.updateBook(authorToUpdate);
+
+        Book fetched = bookDao.getById(authorToUpdate.getId());
+
+        assertThat(fetched).isNotNull();
+        assertThat(fetched.getIsbn()).isEqualTo("Carlione");
+
+        authorToUpdate.setIsbn(previousLastName);
+        bookDao.updateBook(authorToUpdate);
+    }
+
+    @Test
+    void testDeleteById() {
+        Book author = bookDao.saveNewBook(Book.builder().build());
+
+        bookDao.deleteBookById(author.getId());
+
+        assertThrows(JpaObjectRetrievalFailureException.class, () -> bookDao.getById(author.getId()));
+    }
+}
