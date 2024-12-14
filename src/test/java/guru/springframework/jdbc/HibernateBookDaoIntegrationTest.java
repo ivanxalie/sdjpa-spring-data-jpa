@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created by jt on 8/28/21.
@@ -100,6 +102,20 @@ public class HibernateBookDaoIntegrationTest {
         List<Book> books = bookDao.findAllBooks();
 
         assertThat(books).isNotNull();
-        assertThat(books.size()).isGreaterThan(0);
+        assertThat(books).hasSizeGreaterThan(0);
+    }
+
+    @Test
+    void testFindAllPageAndSizePageable() {
+        List<Book> books = bookDao.findAllBooks(PageRequest.of(1, 2));
+
+        assertThat(books).isNotNull().hasSize(2);
+    }
+
+    @Test
+    void findAllBooksSortByTitle() {
+        List<Book> books = bookDao.findAllBooksSortByTitle(PageRequest.of(1, 2,
+                Sort.by(Sort.Direction.DESC, "title")));
+        assertThat(books).isNotNull().hasSize(2);
     }
 }
