@@ -50,17 +50,17 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public List<Book> findAllBooks(int pageSize, int offset) {
-        return repository.findAll(PageRequest.of(offset, pageSize)).stream().toList();
+        return findAllBooks(PageRequest.of(offset, pageSize));
     }
 
     @Override
     public List<Book> findAllBooks(Pageable pageable) {
-        return repository.findAll(pageable).stream().toList();
+        return repository.findAll(pageable).getContent();
     }
 
     @Override
     public List<Book> findAllBooksSortByTitle(Pageable pageable) {
         return repository.findAll(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
-                Sort.by("title"))).stream().toList();
+                Sort.by("title"))).getContent();
     }
 }

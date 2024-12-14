@@ -35,7 +35,7 @@ class BookDaoRepositoryIntegrationTest {
 
     @Test
     void testFindAllPageAndSize() {
-        List<Book> books = bookDao.findAllBooks(2, 2);
+        List<Book> books = bookDao.findAllBooks(2, 1);
 
         assertThat(books).isNotNull().hasSize(2);
     }
