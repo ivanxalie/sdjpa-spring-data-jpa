@@ -1,10 +1,9 @@
 package guru.springframework.jdbc.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import static guru.springframework.jdbc.domain.Author.*;
 
 @Setter
 @Getter
@@ -12,7 +11,15 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@NamedQueries({
+        @NamedQuery(name = FIND_ALL, query = "from Author"),
+        @NamedQuery(name = FIND_BY_LAST_NAME, query = "from Author a where a.lastName = :lastName"),
+        @NamedQuery(name = FIND_BY_NAME, query = "from Author a where a.lastName = :lastName and a.firstName = :firstName")
+})
 public class Author {
+    public static final String FIND_ALL = "selectAuthors";
+    public static final String FIND_BY_LAST_NAME = "findAuthorByLastName";
+    public static final String FIND_BY_NAME = "findAuthorByName";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

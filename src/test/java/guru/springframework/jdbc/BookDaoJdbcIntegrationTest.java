@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import({BookDaoJdbcTemplate.class, BookMapper.class})
-class BookDaoIntegrationTest {
+class BookDaoJdbcIntegrationTest {
     @Autowired
     BookDao bookDao;
 
