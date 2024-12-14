@@ -95,13 +95,9 @@ public class HibernateAuthorDaoIntegrationTest {
     @Test
     void testAuthorsByLastNameFortySmithsPage1Limit10() {
         List<Author> authors = authorDao
-                .findAuthorByLastName("Smith", PageRequest.of(1, 10
-                        ,
-                        Sort.by(
-                                Sort.Order.desc("firstName"),
-                                Sort.Order.asc("lastName")
-                        )
-                ));
+                .findAuthorByLastName("Smith", PageRequest.of(1, 10,
+                        Sort.by(Sort.Order.desc("firstName"),
+                                Sort.Order.asc("lastName"))));
 
         assertThat(authors).isNotNull();
         assertThat(authors.size()).isEqualTo(10);

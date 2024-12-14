@@ -16,6 +16,7 @@ import static guru.springframework.jdbc.domain.Author.*;
         @NamedQuery(name = FIND_BY_LAST_NAME, query = "from Author a where a.lastName = :lastName"),
         @NamedQuery(name = FIND_BY_NAME, query = "from Author a where a.lastName = :lastName and a.firstName = :firstName")
 })
+@ToString
 public class Author {
     public static final String FIND_ALL = "selectAuthors";
     public static final String FIND_BY_LAST_NAME = "findAuthorByLastName";
