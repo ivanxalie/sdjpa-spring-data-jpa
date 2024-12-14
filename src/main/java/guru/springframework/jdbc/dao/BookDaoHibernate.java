@@ -97,7 +97,7 @@ public class BookDaoHibernate implements BookDao {
         return execute(entityManager -> {
                     String sql = "select b from Book b";
                     Sort.Order order = pageable.getSort().getOrderFor("title");
-                    if (order != null) sql += " order by title " + order.getDirection().name();
+                    if (order != null) sql += " order by b.title " + order.getDirection().name();
                     TypedQuery<Book> query = entityManager.createQuery(sql, Book.class);
                     query.setFirstResult(Math.toIntExact(pageable.getOffset()));
                     query.setMaxResults(Math.toIntExact(pageable.getPageSize()));
