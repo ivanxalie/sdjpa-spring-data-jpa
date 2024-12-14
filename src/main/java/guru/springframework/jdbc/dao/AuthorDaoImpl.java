@@ -53,6 +53,6 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public List<Author> findAuthorByLastName(String lastName, Pageable pageable) {
-        return repository.findByLastName(lastName, pageable);
+        return repository.findByLastName(lastName, pageable).getContent();
     }
 }
